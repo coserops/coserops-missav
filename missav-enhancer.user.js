@@ -46,7 +46,6 @@
 // @run-at       document-idle
 // @grant        GM_getValue
 // @grant        GM_setValue
-// @grant        GM_info
 // @grant        GM_registerMenuCommand
 // @grant        unsafeWindow
 // ==/UserScript==
@@ -72,30 +71,20 @@
     const SIDEBAR_MIN_WIDTH = 100;
 
     const PANEL_STYLES = `
-                :is(#coserops-settings, #coserops-downloads, #coserops-settings-button, #coserops-download-button, #coserops-update-notice) {
+                :is(#coserops-settings, #coserops-downloads, #coserops-settings-button, #coserops-download-button) {
                     --co-accent: #c7e76b; --co-brand-blue: #0c3345; --co-bg: #0a202a; --co-surface: #102e3a; --co-border: #2c4855; --co-text: #f1f6f7; --co-muted: #a9bec5;
                     --co-logo: url("data:image/png;base64,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");
                 }
                 :is(#coserops-settings, #coserops-downloads) .co-brand::before,
-                :is(#coserops-settings-button, #coserops-download-button)::before,
-                #coserops-update-notice > strong::before { content: ""; flex: none; display: block; width: 32px; height: 32px; border-radius: 10px; background: var(--co-brand-blue) var(--co-logo) center / contain no-repeat; }
+                :is(#coserops-settings-button, #coserops-download-button)::before { content: ""; flex: none; display: block; width: 32px; height: 32px; border-radius: 10px; background: var(--co-brand-blue) var(--co-logo) center / contain no-repeat; }
                 :is(#coserops-settings-button, #coserops-download-button) { position: fixed; right: max(16px, env(safe-area-inset-right)); z-index: 2147483646; display: flex; align-items: center; gap: 10px; box-sizing: border-box; width: 180px; min-height: 64px; padding: 10px 14px; border: 1px solid var(--co-border); border-radius: 14px; background: var(--co-surface); color: var(--co-text); box-shadow: 0 8px 28px #0004; font: 600 12px/1.65 system-ui, sans-serif; letter-spacing: .1px; text-align: left; white-space: pre-line; cursor: pointer; transition: background 160ms, border-color 160ms, transform 160ms, box-shadow 160ms; }
                 #coserops-settings-button { top: max(80px, env(safe-area-inset-top)); }
                 #coserops-download-button { top: max(154px, calc(env(safe-area-inset-top) + 74px)); background: var(--co-accent); border-color: var(--co-accent); color: var(--co-brand-blue); }
-                #coserops-update-notice { position: fixed; right: max(16px, env(safe-area-inset-right)); bottom: max(20px, env(safe-area-inset-bottom)); z-index: 2147483646; box-sizing: border-box; width: min(400px, calc(100vw - 32px)); max-height: 60vh; max-height: 60dvh; overflow: auto; padding: 24px; border: 1px solid var(--co-border); border-top: 2px solid var(--co-accent); border-radius: 20px; background: linear-gradient(135deg, var(--co-brand-blue), var(--co-bg)); color: var(--co-text); box-shadow: 0 16px 48px #0005; font: 14px/1.75 system-ui, sans-serif; color-scheme: dark; overflow-wrap: anywhere; animation: coserops-enter 280ms cubic-bezier(.16, 1, .3, 1); }
-                #coserops-update-notice > strong { display: flex; align-items: center; gap: 12px; font-size: 16px; line-height: 1.5; font-weight: 650; }
-                #coserops-update-notice > p { margin: 16px 0 20px; color: var(--co-muted); font-size: 13px; }
-                #coserops-update-notice > a { display: inline-flex; align-items: center; min-height: 44px; color: var(--co-accent); text-decoration: underline; text-underline-offset: 4px; }
-                #coserops-update-notice > button { min-height: 44px; margin-left: 16px; padding: 10px 16px; border: 1px solid var(--co-accent); border-radius: 10px; background: var(--co-accent); color: var(--co-brand-blue); font: 600 13px/1.5 system-ui, sans-serif; cursor: pointer; transition: background 160ms, transform 160ms; }
-                #coserops-update-notice > button:disabled { opacity: .65; cursor: wait; }
-                :is(#coserops-settings-button, #coserops-download-button):focus-visible,
-                #coserops-update-notice :focus-visible { outline: 2px solid var(--co-accent); outline-offset: 4px; box-shadow: 0 0 0 6px var(--co-brand-blue); }
-                :is(#coserops-settings-button, #coserops-download-button):active,
-                #coserops-update-notice > button:active:not(:disabled) { transform: translateY(1px); }
+                :is(#coserops-settings-button, #coserops-download-button):focus-visible { outline: 2px solid var(--co-accent); outline-offset: 4px; box-shadow: 0 0 0 6px var(--co-brand-blue); }
+                :is(#coserops-settings-button, #coserops-download-button):active { transform: translateY(1px); }
                 @media (hover: hover) {
                     #coserops-settings-button:hover { background: #16475b; border-color: #8cb0bf; transform: translateY(-2px); box-shadow: 0 12px 32px #0005; }
-                    #coserops-download-button:hover, #coserops-update-notice > button:hover:not(:disabled) { background: #daf394; border-color: #daf394; }
-                    #coserops-update-notice > a:hover { color: #daf394; }
+                    #coserops-download-button:hover { background: #daf394; border-color: #daf394; }
                 }
                 @media (max-width: 600px) {
                     :is(#coserops-settings-button, #coserops-download-button) { right: max(8px, env(safe-area-inset-right)); width: 152px; gap: 8px; padding: 8px 10px; min-height: 56px; font-size: 11px; border-radius: 12px; }
@@ -103,13 +92,11 @@
                     #coserops-download-button { top: max(144px, calc(env(safe-area-inset-top) + 64px)); }
                 }
                 @media (prefers-reduced-motion: reduce) {
-                    :is(#coserops-settings-button, #coserops-download-button), #coserops-update-notice > button { transition: none; transform: none !important; }
-                    #coserops-update-notice { animation: none; }
+                    :is(#coserops-settings-button, #coserops-download-button) { transition: none; transform: none !important; }
                 }
                 @media (forced-colors: active) {
-                    :is(#coserops-settings-button, #coserops-download-button, #coserops-update-notice) { border-color: CanvasText; box-shadow: none; }
-                    :is(#coserops-settings-button, #coserops-download-button):focus-visible, #coserops-update-notice :focus-visible { outline-color: Highlight; box-shadow: none; }
-                    #coserops-update-notice > button { border-color: ButtonText; }
+                    :is(#coserops-settings-button, #coserops-download-button) { border-color: CanvasText; box-shadow: none; }
+                    :is(#coserops-settings-button, #coserops-download-button):focus-visible { outline-color: Highlight; box-shadow: none; }
                 }
 
                 :is(#coserops-settings, #coserops-downloads) { color-scheme: dark; box-sizing: border-box; width: min(700px, calc(100vw - 48px)); max-width: none; max-height: calc(100vh - 32px); max-height: calc(100dvh - max(16px, env(safe-area-inset-top)) - max(16px, env(safe-area-inset-bottom))); margin: auto; padding: 0; overflow: hidden; border: 1px solid var(--co-border); border-radius: 24px; background: var(--co-bg); color: var(--co-text); box-shadow: 0 32px 100px #0008, 0 1px 0 #ffffff08 inset; font: 14px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; text-align: left; }
@@ -294,7 +281,6 @@
     let inspectionTimer = null;
     let languageDone = false;
     let languageAttempts = 0;
-    let updateNotice = null;
     let downloadPanel = null;
     let downloadButton = null;
     let downloadMetadataRequest = null;
@@ -313,62 +299,6 @@
         sheet.id = 'coserops-brand-style';
         sheet.textContent = PANEL_STYLES;
         document.head.append(sheet);
-    }
-
-    function createUpdateNotice(version, currentVersion) {
-        ensureBrandStyles();
-        const notice = document.createElement('section');
-        notice.id = 'coserops-update-notice';
-        notice.setAttribute('role', 'status');
-        notice.setAttribute('aria-label', '脚本版本通知');
-        const title = document.createElement('strong');
-        title.textContent = currentVersion ? `脚本当前版本：${version}` : `脚本已更新到 ${version}`;
-        const details = document.createElement('p');
-        details.textContent = '本版修复 FFmpeg 8.x 下载命令：兼容使用 .jpeg 等后缀的视频分片；浏览器下载仍按播放列表顺序保存真实视频数据。';
-        const link = document.createElement('a');
-        link.href = 'https://github.com/coserops/coserops-missav#更新与通知';
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        link.textContent = '查看更新说明';
-        const dismiss = document.createElement('button');
-        dismiss.type = 'button';
-        dismiss.textContent = '知道了';
-        notice.append(title, details, link, dismiss);
-        return { notice, details, dismiss };
-    }
-
-    async function acknowledgeVersion(version, notice, details, dismiss) {
-        dismiss.disabled = true;
-        try {
-            await GM_setValue('lastAcknowledgedVersion', version);
-            notice.remove();
-            updateNotice = null;
-        } catch (error) {
-            console.warn(PREFIX, '版本通知保存失败', error);
-            details.textContent = '无法保存已读状态，请重试；刷新页面后可能再次提示。';
-            dismiss.disabled = false;
-        }
-    }
-
-    /**
-     * Display one version notice after reading persisted acknowledgment.
-     * @param {boolean} [manual=false] Whether to show an acknowledged version.
-     * @returns {Promise<void>}
-     */
-    async function showUpdateNotice(manual = false) {
-        if (updateNotice) return;
-        try {
-            const version = GM_info.script.version;
-            const seen = await GM_getValue('lastAcknowledgedVersion', '');
-            if (!manual && seen === version) return;
-            if (updateNotice) return;
-            const { notice, details, dismiss } = createUpdateNotice(version, manual || !seen);
-            dismiss.addEventListener('click', () => acknowledgeVersion(version, notice, details, dismiss));
-            document.body.append(notice);
-            updateNotice = notice;
-        } catch (error) {
-            console.warn(PREFIX, '版本通知读取失败，可通过项目主页查看更新说明', error);
-        }
     }
 
     function report(key, text, error) {
@@ -1712,8 +1642,6 @@
         await loadPreferences();
         ensureBrandStyles();
         GM_registerMenuCommand('设置', openSettings);
-        GM_registerMenuCommand('当前版本 / 更新说明', () => showUpdateNotice(true));
-        void showUpdateNotice();
         const button = document.createElement('button');
         button.id = 'coserops-settings-button';
         button.type = 'button';

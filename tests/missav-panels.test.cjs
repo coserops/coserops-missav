@@ -45,7 +45,7 @@ test('all surfaces use the original embedded logo and shared brand tokens withou
         for (const token of ['--co-accent: #c7e76b', '--co-brand-blue: #0c3345', '--co-muted: #a9bec5']) {
             assert.ok(styles.includes(token), token);
         }
-        for (const id of ['settings-button', 'download-button', 'update-notice']) {
+        for (const id of ['settings-button', 'download-button']) {
             assert.ok(styles.includes(`#coserops-${id}`), id);
         }
         assert.ok(styles.includes('env(safe-area-inset-right)'));
@@ -106,7 +106,6 @@ test('responsive styling protects safe areas, scrollable content and reduced-mot
     for (const edge of ['top', 'right', 'bottom', 'left']) {
         assert.ok(panels.PANEL_STYLES.includes(`env(safe-area-inset-${edge})`));
     }
-    assert.match(panels.PANEL_STYLES, /#coserops-update-notice \{ animation: none; \}/);
     assert.match(panels.PANEL_STYLES, /button:active:not\(:disabled\) \{ transform: none; \}/);
     assert.match(panels.SETTINGS_STYLES, /select:disabled/);
     assert.match(panels.SETTINGS_STYLES, /co-footer-actions \{ grid-column: 1; grid-row: 2;/);

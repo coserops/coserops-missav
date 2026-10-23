@@ -208,69 +208,6 @@ test('manual language apply follows target link even when listing page lang is s
     assert.equal(h.redirects[0], 'https://missav.ws/dm247/cn');
 });
 
-function notificationHarness(seen = '', failSave = false) {
-    const storage = new Map([['lastAcknowledgedVersion', seen]]);
-    const notices = [];
-    const warnings = [];
-    const sheets = [];
-    const context = {
-        GM_info: { script: { version: '2026.10.22.1' } },
-        GM_getValue: async (key, fallback) => storage.get(key) ?? fallback,
-        GM_setValue: async (key, value) => {
-            if (failSave) throw new Error('Storage unavailable');
-            storage.set(key, value);
-        },
-        console: { warn: (...args) => warnings.push(args) },
-        document: {
-            head: { append: element => sheets.push(element) },
-            getElementById: id => sheets.find(element => element.id === id),
-            body: { append: element => notices.push(element) },
-            createElement: () => ({
-                style: {}, events: {}, children: [],
-                setAttribute() {},
-                append(...children) { this.children.push(...children); },
-                addEventListener(event, fn) { this.events[event] = fn; },
-                remove() { notices.splice(notices.indexOf(this), 1); },
-            }),
-        },
-    };
-    runInNewContext(script.replace("    start().catch(error => console.error(PREFIX, '初始化失败', error));", 'globalThis.show = showUpdateNotice;'), context);
-    return { show: context.show, notices, storage, warnings, sheets };
-}
-
-test('first installation shows current version and acknowledgment persists', async () => {
-    const h = notificationHarness();
-    await h.show();
-    assert.match(h.notices[0].children[0].textContent, /当前版本/);
-    await h.notices[0].children[3].events.click();
-    assert.equal(h.storage.get('lastAcknowledgedVersion'), '2026.10.22.1');
-    await h.show();
-    assert.equal(h.notices.length, 0);
-    await h.show(true);
-    assert.equal(h.notices.length, 1);
-});
-
-test('changed version shows update notice, concurrent calls do not duplicate it', async () => {
-    const h = notificationHarness('v20261022');
-    await Promise.all([h.show(), h.show()]);
-    assert.equal(h.notices.length, 1);
-    assert.equal(h.sheets.length, 1);
-    assert.equal(h.sheets[0].id, 'coserops-brand-style');
-    assert.match(h.notices[0].children[0].textContent, /已更新到 2026\.10\.22\.1/);
-});
-
-test('failed acknowledgment stays visible and permits retry', async () => {
-    const h = notificationHarness('', true);
-    await h.show();
-    await h.notices[0].children[3].events.click();
-    assert.equal(h.notices.length, 1);
-    assert.match(h.notices[0].children[1].textContent, /无法保存/);
-    assert.equal(h.notices[0].children[3].disabled, false);
-    assert.equal(h.storage.get('lastAcknowledgedVersion'), '');
-    assert.equal(h.warnings.length, 1);
-});
-
-
 test('stored preferences load through the startup boundary', async () => {
     const h = setup();
     h.context.GM_getValue = async key => key === 'preferredQuality' ? 1080 : 'ja';
