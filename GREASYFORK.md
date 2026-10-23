@@ -2,6 +2,8 @@
 
 # CoserOps MissAV 播放器脚本
 
+[更多 CoserOps 项目](https://github.com/orgs/coserops/repositories)
+
 在 MissAV 网页播放时，减少切换窗口的打断，记住画质与语言，让重复设置少一些。安装后可从页面右上方打开设置，在播放页查看视频源与下载选项。
 
 ## 播放时少些重复操作
@@ -31,7 +33,3 @@
 
 - [Greasy Fork 下载、安装与更新](https://greasyfork.org/zh-CN/scripts/601634-coserops-missav-%E6%92%AD%E6%94%BE%E5%99%A8%E8%84%9A%E6%9C%AC)
 - [GitHub 源码与使用说明](https://github.com/coserops/coserops-missav)
-
-## 更多项目
-
-[更多 CoserOps 项目](https://github.com/orgs/coserops/repositories)

@@ -2,6 +2,8 @@
 
 # CoserOps MissAV 播放器脚本
 
+[更多 CoserOps 项目](https://github.com/orgs/coserops/repositories)
+
 用于 MissAV 网页的浏览器用户脚本：减少切换窗口时的暂停，自动扩展播放区域，记住画质与网站语言，并提供视频源查看与下载面板。需要先安装 Tampermonkey（篡改猴），无需配置 API Key；使用 FFmpeg 下载命令时需另行安装 FFmpeg。
 
 本文依据仓库当前 [脚本源码](missav-enhancer.user.js)，不代表 Greasy Fork 已同步全部功能。请以实际安装版本和运行状态为准；网站与播放器变化可能影响适配。
@@ -210,6 +212,4 @@ node --test tests/*.test.cjs
 
 当前仓库未提供许可证文件，用户脚本元数据也未声明许可证。公开源码不等于授予任意复制、修改或再分发权限；相关授权请向维护者确认。
 
-## 更多项目
-
-[GitHub 源码](https://github.com/coserops/coserops-missav) · [CoserOps 项目列表](https://github.com/orgs/coserops/repositories)
+[GitHub 源码](https://github.com/coserops/coserops-missav)
