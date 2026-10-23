@@ -15,11 +15,11 @@
 
 ## 开始使用
 
-1. 安装 [Tampermonkey（篡改猴）](https://www.tampermonkey.net/index.php?locale=zh_cn)，打开下方 Greasy Fork 发布页，点击 **安装此脚本**，在脚本管理器中确认安装。
+1. 安装 [Tampermonkey（篡改猴）](https://www.tampermonkey.net/index.php?locale=zh_cn)，打开下方 Sleazy Fork 发布页，点击 **安装此脚本**，在脚本管理器中确认安装。
 2. 打开或刷新支持的网站，点击“播放器脚本设置”，选择偏好后“保存并应用”，查看运行状态。
 3. 播放页点击“视频下载”；没有来源时先播放，再点“重新获取”。仅保存有权下载的内容。
 
-后续通过脚本管理器检查并获取 Greasy Fork 更新，或回到同一发布页安装更新。自动更新取决于管理器设置和有效元数据；当前源码仍声明 GitHub 更新源，详情见 README。
+后续通过脚本管理器检查并获取 Sleazy Fork 更新，或回到同一发布页安装更新。自动更新取决于管理器设置和有效元数据；当前源码仍声明 GitHub 更新源，详情见 README。
 
 ## 使用前了解
 
@@ -31,5 +31,5 @@
 
 ## 下载与源码
 
-- [Greasy Fork 下载、安装与更新](https://greasyfork.org/zh-CN/scripts/601634-coserops-missav-%E6%92%AD%E6%94%BE%E5%99%A8%E8%84%9A%E6%9C%AC)
+- [Sleazy Fork 下载、安装与更新](https://sleazyfork.org/zh-CN/scripts/601634-coserops-missav-%E6%92%AD%E6%94%BE%E5%99%A8%E8%84%9A%E6%9C%AC)
 - [GitHub 源码与使用说明](https://github.com/coserops/coserops-missav)

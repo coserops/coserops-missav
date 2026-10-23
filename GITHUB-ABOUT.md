@@ -6,7 +6,7 @@ CoserOps MissAV 增强脚本 | MissAV userscript：防切屏暂停、自动宽�
 
 ## Website
 
-https://greasyfork.org/zh-CN/scripts/601634-coserops-missav-%E6%92%AD%E6%94%BE%E5%99%A8%E8%84%9A%E6%9C%AC
+https://sleazyfork.org/zh-CN/scripts/601634-coserops-missav-%E6%92%AD%E6%94%BE%E5%99%A8%E8%84%9A%E6%9C%AC
 
 ## Topics
 
