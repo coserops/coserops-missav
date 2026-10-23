@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/coserops/coserops-missav/main/logo-mark.png" alt="CoserOps MissAV 播放器脚本 Logo" width="96">
+<img src="https://raw.githubusercontent.com/coserops/coserops-missav/main/logo.png" alt="CoserOps MissAV 播放器脚本 Logo" width="96">
 
 # CoserOps MissAV 播放器脚本
 
