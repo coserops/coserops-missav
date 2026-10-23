@@ -945,6 +945,7 @@
         downloadButton.textContent = 'CoserOps MissAV\n视频下载';
         downloadButton.setAttribute('aria-haspopup', 'dialog');
         downloadButton.style.cssText = 'position:fixed;right:12px;top:150px;z-index:2147483646;padding:10px 18px;min-height:44px;background:#c5e8c9;color:#17251b;border:1px solid #5c7764;border-radius:12px;font:600 14px/1.6 system-ui,sans-serif;cursor:pointer;box-shadow:0 6px 24px #0004';
+        downloadButton.style.whiteSpace = 'pre-line';
         downloadButton.addEventListener('click', openDownloadPanel);
         document.body.append(downloadButton);
     }
