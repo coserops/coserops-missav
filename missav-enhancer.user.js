@@ -73,7 +73,7 @@
 
     const PANEL_STYLES = `
                 :is(#coserops-settings, #coserops-downloads, #coserops-settings-button, #coserops-download-button, #coserops-update-notice) {
-                    --co-accent: #c7e76b; --co-brand-blue: #0c3345; --co-bg: #0b2835; --co-surface: #0c3345; --co-border: #365969; --co-text: #f1f6f7; --co-muted: #a9bec5;
+                    --co-accent: #c7e76b; --co-brand-blue: #0c3345; --co-bg: #0a202a; --co-surface: #102e3a; --co-border: #2c4855; --co-text: #f1f6f7; --co-muted: #a9bec5;
                     --co-logo: url("data:image/png;base64,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");
                 }
                 :is(#coserops-settings, #coserops-downloads) .co-brand::before,
@@ -82,8 +82,8 @@
                 :is(#coserops-settings-button, #coserops-download-button) { position: fixed; right: max(16px, env(safe-area-inset-right)); z-index: 2147483646; display: flex; align-items: center; gap: 10px; box-sizing: border-box; width: 180px; min-height: 64px; padding: 10px 14px; border: 1px solid var(--co-border); border-radius: 14px; background: var(--co-surface); color: var(--co-text); box-shadow: 0 8px 28px #0004; font: 600 12px/1.65 system-ui, sans-serif; letter-spacing: .1px; text-align: left; white-space: pre-line; cursor: pointer; transition: background 160ms, border-color 160ms, transform 160ms, box-shadow 160ms; }
                 #coserops-settings-button { top: max(80px, env(safe-area-inset-top)); }
                 #coserops-download-button { top: max(154px, calc(env(safe-area-inset-top) + 74px)); background: var(--co-accent); border-color: var(--co-accent); color: var(--co-brand-blue); }
-                #coserops-update-notice { position: fixed; right: max(16px, env(safe-area-inset-right)); bottom: max(20px, env(safe-area-inset-bottom)); z-index: 2147483646; box-sizing: border-box; width: min(380px, calc(100vw - 32px)); max-height: 60vh; max-height: 60dvh; overflow: auto; padding: 22px; border: 1px solid var(--co-border); border-radius: 18px; background: var(--co-surface); color: var(--co-text); box-shadow: 0 16px 48px #0005; font: 14px/1.75 system-ui, sans-serif; color-scheme: dark; overflow-wrap: anywhere; }
-                #coserops-update-notice > strong { display: flex; align-items: center; gap: 12px; font-weight: 650; }
+                #coserops-update-notice { position: fixed; right: max(16px, env(safe-area-inset-right)); bottom: max(20px, env(safe-area-inset-bottom)); z-index: 2147483646; box-sizing: border-box; width: min(400px, calc(100vw - 32px)); max-height: 60vh; max-height: 60dvh; overflow: auto; padding: 24px; border: 1px solid var(--co-border); border-top: 2px solid var(--co-accent); border-radius: 20px; background: linear-gradient(135deg, var(--co-brand-blue), var(--co-bg)); color: var(--co-text); box-shadow: 0 16px 48px #0005; font: 14px/1.75 system-ui, sans-serif; color-scheme: dark; overflow-wrap: anywhere; animation: coserops-enter 280ms cubic-bezier(.16, 1, .3, 1); }
+                #coserops-update-notice > strong { display: flex; align-items: center; gap: 12px; font-size: 16px; line-height: 1.5; font-weight: 650; }
                 #coserops-update-notice > p { margin: 16px 0 20px; color: var(--co-muted); font-size: 13px; }
                 #coserops-update-notice > a { display: inline-flex; align-items: center; min-height: 44px; color: var(--co-accent); text-decoration: underline; text-underline-offset: 4px; }
                 #coserops-update-notice > button { min-height: 44px; margin-left: 16px; padding: 10px 16px; border: 1px solid var(--co-accent); border-radius: 10px; background: var(--co-accent); color: var(--co-brand-blue); font: 600 13px/1.5 system-ui, sans-serif; cursor: pointer; transition: background 160ms, transform 160ms; }
@@ -104,6 +104,7 @@
                 }
                 @media (prefers-reduced-motion: reduce) {
                     :is(#coserops-settings-button, #coserops-download-button), #coserops-update-notice > button { transition: none; transform: none !important; }
+                    #coserops-update-notice { animation: none; }
                 }
                 @media (forced-colors: active) {
                     :is(#coserops-settings-button, #coserops-download-button, #coserops-update-notice) { border-color: CanvasText; box-shadow: none; }
@@ -111,31 +112,40 @@
                     #coserops-update-notice > button { border-color: ButtonText; }
                 }
 
-                :is(#coserops-settings, #coserops-downloads) { color-scheme: dark; box-sizing: border-box; width: min(640px, calc(100vw - 32px)); max-width: none; max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px); margin: auto; padding: 0; overflow: hidden; border: 1px solid var(--co-border); border-radius: 22px; background: var(--co-bg); color: var(--co-text); box-shadow: 0 32px 100px #0008, 0 1px 0 #ffffff08 inset; font: 14px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; text-align: left; }
-                :is(#coserops-settings, #coserops-downloads)[open] { display: flex; flex-direction: column; animation: coserops-enter 220ms cubic-bezier(.2, .8, .2, 1); }
-                :is(#coserops-settings, #coserops-downloads)::backdrop { background: #04151dd6; backdrop-filter: blur(8px); }
+                :is(#coserops-settings, #coserops-downloads) { color-scheme: dark; box-sizing: border-box; width: min(700px, calc(100vw - 48px)); max-width: none; max-height: calc(100vh - 32px); max-height: calc(100dvh - max(16px, env(safe-area-inset-top)) - max(16px, env(safe-area-inset-bottom))); margin: auto; padding: 0; overflow: hidden; border: 1px solid var(--co-border); border-radius: 24px; background: var(--co-bg); color: var(--co-text); box-shadow: 0 32px 100px #0008, 0 1px 0 #ffffff08 inset; font: 14px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; text-align: left; }
+                :is(#coserops-settings, #coserops-downloads)[open] { display: flex; flex-direction: column; animation: coserops-enter 280ms cubic-bezier(.16, 1, .3, 1); }
+                :is(#coserops-settings, #coserops-downloads)::backdrop { background: #020c14b8; backdrop-filter: blur(12px); }
                 :is(#coserops-settings, #coserops-downloads) * { box-sizing: border-box; }
                 :is(#coserops-settings, #coserops-downloads) :is(h2, h3, p, dl) { margin: 0; }
-                :is(#coserops-settings, #coserops-downloads) .co-header { flex: none; display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding: 30px 32px 26px; border-bottom: 1px solid var(--co-border); background: radial-gradient(ellipse at top right, #c7e76b0d, transparent 70%), var(--co-surface); }
+                :is(#coserops-settings, #coserops-downloads) .co-header { flex: none; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; padding: 32px 36px 28px; border-bottom: 1px solid var(--co-border); background: radial-gradient(ellipse at 100% 0, #c7e76b0c, transparent 60%), linear-gradient(125deg, var(--co-brand-blue), var(--co-bg)); }
                 :is(#coserops-settings, #coserops-downloads) .co-header > div { min-width: 0; }
-                :is(#coserops-settings, #coserops-downloads) .co-brand { display: flex; align-items: center; gap: 10px; color: var(--co-accent); font: 600 10px/1.5 ui-monospace, monospace; letter-spacing: 1.8px; }
-                :is(#coserops-settings, #coserops-downloads) h2 { margin: 18px 0 8px; color: var(--co-text); font-size: clamp(23px, 4vw, 30px); font-weight: 650; line-height: 1.35; letter-spacing: -.6px; overflow-wrap: anywhere; }
+                :is(#coserops-settings, #coserops-downloads) a.co-contact { position: relative; display: inline-flex; align-items: center; justify-self: start; min-height: 44px; max-width: 100%; gap: 8px; padding: 8px 14px; border: 1px solid var(--co-border); border-radius: 12px; background: var(--co-surface); color: var(--co-muted); font: 500 12px/1.6 system-ui, sans-serif; letter-spacing: normal; text-decoration: none; overflow-wrap: anywhere; }
+                :is(#coserops-settings, #coserops-downloads) a.co-contact:hover { color: var(--co-accent); }
+                :is(#coserops-settings, #coserops-downloads) a.co-contact::after { content: ""; position: absolute; top: 0; right: 12px; width: 6px; height: 6px; border-radius: 50%; background: var(--co-accent); box-shadow: 0 0 0 1px var(--co-border), 0 0 8px var(--co-accent); pointer-events: none; }
+                @supports (offset-path: inset(0 round 12px)) {
+                    :is(#coserops-settings, #coserops-downloads) a.co-contact::after { left: 0; right: auto; offset-path: inset(0 round 12px); animation: coserops-contact-orbit 5s linear infinite; }
+                }
+                @keyframes coserops-contact-orbit { to { offset-distance: 100%; } }
+                :is(#coserops-settings, #coserops-downloads) .co-brand { display: flex; align-items: center; gap: 12px; color: var(--co-accent); font: 600 11px/1.5 ui-monospace, monospace; letter-spacing: 2px; }
+                :is(#coserops-settings, #coserops-downloads) h2 { margin: 24px 0 10px; color: var(--co-text); font-size: clamp(26px, 4vw, 36px); font-weight: 650; line-height: 1.25; letter-spacing: -1px; overflow-wrap: anywhere; text-wrap: balance; }
                 :is(#coserops-settings, #coserops-downloads) .co-muted { color: var(--co-muted); font-size: 13px; line-height: 1.75; font-weight: 400; }
-                :is(#coserops-settings, #coserops-downloads) :is(.co-body, .co-download-body) { min-height: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; scrollbar-color: #537784 var(--co-bg); padding: 26px 32px; scroll-padding-block: 16px; }
-                :is(#coserops-settings, #coserops-downloads) button { min-height: 44px; max-width: 100%; padding: 10px 16px; border: 1px solid #537784; border-radius: 10px; background: #143e50; color: var(--co-text); font: 600 13px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; cursor: pointer; transition: background 150ms, border-color 150ms, transform 150ms; overflow-wrap: anywhere; }
+                :is(#coserops-settings, #coserops-downloads) :is(.co-body, .co-download-body) { min-height: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; scrollbar-color: #537784 var(--co-bg); padding: 28px 36px; scroll-padding-block: 20px; }
+                :is(#coserops-settings, #coserops-downloads) button { min-height: 44px; max-width: 100%; padding: 10px 16px; border: 1px solid #537784; border-radius: 12px; background: #153542; color: var(--co-text); font: 600 13px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; cursor: pointer; transition: background 150ms, border-color 150ms, transform 150ms; overflow-wrap: anywhere; }
                 :is(#coserops-settings, #coserops-downloads) button:active:not(:disabled) { transform: translateY(1px); }
                 :is(#coserops-settings, #coserops-downloads) button:disabled { color: #96acb5; background: #173744; border-color: #385663; cursor: default; }
                 :is(#coserops-settings, #coserops-downloads) button:is(.co-primary, [data-video-save]):not(:disabled) { background: var(--co-accent); border-color: var(--co-accent); color: #0c3345; }
-                :is(#coserops-settings, #coserops-downloads) button.co-close { flex: none; width: 44px; padding: 0; border-radius: 50%; background: transparent; font-size: 24px; font-weight: 400; }
+                :is(#coserops-settings, #coserops-downloads) button.co-close { flex: none; width: 44px; padding: 0; border-radius: 50%; border-color: var(--co-border); background: #ffffff04; font-size: 24px; font-weight: 400; }
                 :is(#coserops-settings, #coserops-downloads) :focus-visible { outline: 2px solid var(--co-accent); outline-offset: 3px; }
                 @media (hover: hover) {
                     :is(#coserops-settings, #coserops-downloads) button:hover:not(:disabled) { background: #205266; border-color: #8cb0bf; }
                     :is(#coserops-settings, #coserops-downloads) button:is(.co-primary, [data-video-save]):hover:not(:disabled) { background: #daf394; border-color: #daf394; }
                 }
-                @keyframes coserops-enter { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+                @keyframes coserops-enter { from { opacity: 0; transform: translateY(12px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
                 @media (max-width: 600px) {
-                    :is(#coserops-settings, #coserops-downloads) { width: calc(100vw - 16px); max-height: calc(100vh - 16px); max-height: calc(100dvh - 16px); border-radius: 18px; }
+                    :is(#coserops-settings, #coserops-downloads) { width: calc(100vw - 16px); max-height: calc(100vh - 16px); max-height: calc(100dvh - max(8px, env(safe-area-inset-top)) - max(8px, env(safe-area-inset-bottom))); width: calc(100vw - max(8px, env(safe-area-inset-left)) - max(8px, env(safe-area-inset-right))); border-radius: 18px; }
                     :is(#coserops-settings, #coserops-downloads) .co-header { padding: 20px; gap: 12px; }
+                    :is(#coserops-settings, #coserops-downloads) .co-brand { font-size: 10px; letter-spacing: 1px; gap: 8px; }
+                    :is(#coserops-settings, #coserops-downloads) h2 { margin-top: 16px; }
                     :is(#coserops-settings, #coserops-downloads) :is(.co-body, .co-download-body) { padding: 20px; }
                 }
                 @media (max-height: 500px) {
@@ -144,36 +154,48 @@
                 }
                 @media (prefers-reduced-motion: reduce) {
                     :is(#coserops-settings, #coserops-downloads)[open] { animation: none; }
+                    :is(#coserops-settings, #coserops-downloads) a.co-contact::after { animation: none; }
                     :is(#coserops-settings, #coserops-downloads) * { transition: none !important; }
+                    :is(#coserops-settings, #coserops-downloads) button:active:not(:disabled) { transform: none; }
                 }
                 @media (forced-colors: active) {
                     :is(#coserops-settings, #coserops-downloads) { border-color: CanvasText; box-shadow: none; }
                     :is(#coserops-settings, #coserops-downloads) :is(button, select, input) { border: 1px solid ButtonText; }
                     :is(#coserops-settings, #coserops-downloads) :focus-visible { outline-color: Highlight; }
+                    :is(#coserops-settings, #coserops-downloads) a.co-contact { border-color: LinkText; }
+                    :is(#coserops-settings, #coserops-downloads) a.co-contact::after { display: none; }
                 }
             `;
     const SETTINGS_STYLES = `
-                #coserops-settings .co-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-                #coserops-settings .co-fields > div { min-width: 0; padding: 18px; border: 1px solid var(--co-border); border-radius: 14px; background: var(--co-surface); transition: border-color 150ms, background 150ms; }
+                #coserops-settings .co-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+                #coserops-settings .co-fields > div { min-width: 0; padding: 22px; border: 1px solid var(--co-border); border-radius: 16px; background: var(--co-surface); transition: border-color 150ms, background 150ms; }
                 #coserops-settings .co-fields > div:focus-within { border-color: var(--co-accent); background: #103748; }
                 #coserops-settings label { display: block; font-size: 14px; font-weight: 600; }
-                #coserops-settings .co-field-index { display: block; margin-bottom: 12px; color: var(--co-muted); font: 10px/1.5 ui-monospace, monospace; letter-spacing: 1.5px; }
-                #coserops-settings select { display: block; width: 100%; min-width: 0; min-height: 48px; margin: 12px 0; padding: 10px; border: 1px solid #537784; border-radius: 8px; background: var(--co-bg); color: var(--co-text); font: inherit; cursor: pointer; }
-                #coserops-settings .co-status { display: grid; gap: 0; margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--co-border); }
-                #coserops-settings .co-status-title { margin-bottom: 4px; color: var(--co-text); font-size: 11px; font-weight: 600; letter-spacing: 1px; }
-                #coserops-settings .co-status-row { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 16px; padding: 10px 0; border-bottom: 1px solid #ffffff08; font-size: 13px; }
+                #coserops-settings .co-field-index { display: block; margin-bottom: 18px; color: var(--co-accent); font: 10px/1.5 ui-monospace, monospace; letter-spacing: 1.5px; }
+                #coserops-settings select { display: block; width: 100%; min-width: 0; min-height: 48px; margin: 14px 0 12px; padding: 10px 12px; border: 1px solid #537784; border-radius: 10px; background: var(--co-bg); color: var(--co-text); font: inherit; cursor: pointer; }
+                #coserops-settings select:disabled { opacity: .6; cursor: wait; }
+                #coserops-settings .co-status { display: grid; gap: 0; margin-top: 28px; }
+                #coserops-settings .co-status-title { display: flex; align-items: center; gap: 16px; margin-bottom: 10px; color: var(--co-muted); font-size: 11px; font-weight: 500; letter-spacing: 1.5px; }
+                #coserops-settings .co-status-title::after { content: ""; flex: 1; height: 1px; background: var(--co-border); }
+                #coserops-settings .co-status-row { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 16px; padding: 8px 0; border-bottom: 1px solid #ffffff08; font-size: 13px; }
                 #coserops-settings .co-status-row > span:first-child { color: var(--co-muted); }
                 #coserops-settings [data-status] { overflow-wrap: anywhere; }
-                #coserops-settings .co-footer { flex: none; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 32px 22px; border-top: 1px solid var(--co-border); background: #092330; }
-                #coserops-settings .co-feedback { flex: 1 0 100%; min-height: 20px; color: var(--co-muted); font-size: 12px; overflow-wrap: anywhere; }
-                #coserops-settings [data-reset] { background: transparent; }
+                #coserops-settings .co-footer { flex: none; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px 20px; padding: 20px 36px; border-top: 1px solid var(--co-border); background: #081b24; }
+                #coserops-settings .co-footer-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; grid-column: 2; grid-row: 1 / 3; }
+                #coserops-settings .co-feedback { min-height: 20px; color: var(--co-muted); font-size: 12px; overflow-wrap: anywhere; }
+                #coserops-settings [data-reset] { background: transparent; border-color: var(--co-border); color: var(--co-muted); }
                 #coserops-settings .co-primary { padding-inline: 24px; }
                 @media (max-width: 600px) {
                     #coserops-settings .co-fields { grid-template-columns: 1fr; }
-                    #coserops-settings .co-footer { padding: 16px 20px; gap: 10px; }
+                    #coserops-settings .co-footer { padding: 16px 20px; gap: 4px; grid-template-columns: minmax(0, 1fr); }
+                    #coserops-settings .co-footer-actions { grid-column: 1; grid-row: 2; margin-block: 8px; }
+                    #coserops-settings .co-footer-actions button { flex: 1; }
+                    #coserops-settings .co-fields > div { padding: 18px; }
+                    #coserops-settings .co-field-index { margin-bottom: 12px; }
                     #coserops-settings .co-status-row { grid-template-columns: 76px minmax(0, 1fr); gap: 12px; }
                 }
             `;
+    const CONTACT_MARKUP = '<a class="co-contact" href="https://x.com/coserops" target="_blank" rel="noopener noreferrer" aria-label="联系作者：X @coserops（在新标签页打开）">联系作者 · X @coserops <span aria-hidden="true">↗</span></a>';
     const SETTINGS_MARKUP = `
                 <header class="co-header">
                     <div><p class="co-brand">COSEROPS / MISSAV</p><h2 id="coserops-settings-title">播放偏好</h2><p class="co-muted">让每次播放，都合你习惯。</p></div>
@@ -185,7 +207,7 @@
                         <div><span class="co-field-index" aria-hidden="true">02 / LANGUAGE</span><label for="coserops-language">界面语言</label><select id="coserops-language"></select><p class="co-muted">保存后切换，之后自动沿用（约耗时5秒）</p></div>
                     </div>
                     <section class="co-status" aria-label="运行状态" aria-live="polite">
-                        <h3 class="co-status-title" style="margin:0">运行状态 / STATUS</h3>
+                        <h3 class="co-status-title">运行状态 / STATUS</h3>
                         <div class="co-status-row"><span>防失焦暂停</span><span data-status="pause"></span></div>
                         <div class="co-status-row"><span>自动宽屏</span><span data-status="wide"></span></div>
                         <div class="co-status-row"><span>语言状态</span><span data-status="language"></span></div>
@@ -193,16 +215,22 @@
                         <div class="co-status-row"><span>下载链接</span><span data-status="download"></span></div>
                     </section>
                 </div>
-                <footer class="co-footer"><p class="co-feedback" role="status">偏好仅保存在当前浏览器</p><button type="button" data-reset>恢复默认</button><button type="button" class="co-primary" data-save>保存并应用</button></footer>`;
+                <footer class="co-footer"><p class="co-feedback" role="status">偏好仅保存在当前浏览器</p><div class="co-footer-actions"><button type="button" data-reset>恢复默认</button><button type="button" class="co-primary" data-save>保存并应用</button></div>${CONTACT_MARKUP}</footer>`;
     const DOWNLOAD_STYLES = `
-                #coserops-downloads { width: min(940px, calc(100vw - 32px)); }
-                #coserops-downloads .co-header { align-items: center; }
+                #coserops-downloads { width: min(920px, calc(100vw - 48px)); }
+                #coserops-downloads .co-header { align-items: flex-start; }
                 #coserops-downloads .co-download-body { padding-top: 22px; }
-                #coserops-downloads [data-download-status] { color: var(--co-text); font-size: 14px; font-weight: 600; }
-                #coserops-downloads .co-download-note { margin-top: 10px; max-width: 76ch; }
-                #coserops-downloads .co-download-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 10px; margin-top: 22px; padding: 22px; border: 1px solid var(--co-border); border-radius: 16px; background: var(--co-surface); }
+                #coserops-downloads .co-download-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+                #coserops-downloads [data-download-status] { color: var(--co-text); font-size: 14px; font-weight: 600; overflow-wrap: anywhere; }
+                #coserops-downloads [data-download-refresh] { flex: none; background: transparent; }
+                #coserops-downloads .co-download-note { margin-top: 12px; padding: 14px 16px; border-left: 2px solid var(--co-border); background: #ffffff03; font-size: 12px; }
+                #coserops-downloads .co-download-footer { flex: none; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 4px 20px; padding: 12px 36px; border-top: 1px solid var(--co-border); background: #081b24; }
+                #coserops-downloads .co-download-footer .co-muted { font-size: 12px; }
+                #coserops-downloads .co-download-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 10px; margin-top: 20px; padding: 24px; border: 1px solid var(--co-border); border-radius: 16px; background: var(--co-surface); }
+                #coserops-downloads .co-download-row:focus-within { border-color: #8cb0bf; }
                 #coserops-downloads .co-download-row > * { min-width: 0; }
-                #coserops-downloads a { flex: 1 0 100%; color: var(--co-accent); font-size: 18px; font-weight: 650; letter-spacing: -.2px; line-height: 1.5; text-decoration: underline; text-decoration-color: #7e9b47; text-underline-offset: 5px; overflow-wrap: anywhere; }
+                #coserops-downloads .co-download-row > a { flex: 1 0 100%; color: var(--co-text); font-size: 18px; font-weight: 650; letter-spacing: -.2px; line-height: 1.5; text-decoration: underline; text-decoration-color: var(--co-border); text-underline-offset: 5px; overflow-wrap: anywhere; }
+                #coserops-downloads .co-download-row > a:hover { color: var(--co-accent); text-decoration-color: currentColor; }
                 #coserops-downloads input { flex: 1 1 180px; width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid #537784; border-radius: 8px; background: var(--co-bg); color: #c3d4db; font: 12px/1.6 ui-monospace, monospace; }
                 #coserops-downloads .co-download-origin { flex: 1 0 100%; color: var(--co-muted); font-size: 12px; overflow-wrap: anywhere; }
                 #coserops-downloads .co-download-facts { flex: 1 0 100%; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; padding: 16px 0; border-block: 1px solid var(--co-border); }
@@ -212,9 +240,9 @@
                 #coserops-downloads .co-download-job { flex: 1 0 100%; padding: 12px 14px; border-left: 2px solid var(--co-accent); border-radius: 0 8px 8px 0; background: var(--co-bg); color: #c3d4db; font-size: 12px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
                 #coserops-downloads .co-download-job:empty { display: none; }
                 @media (max-width: 600px) {
-                    #coserops-downloads { width: calc(100vw - 16px); }
-                    #coserops-downloads .co-header { flex-wrap: wrap; }
-                    #coserops-downloads .co-header > .co-download-actions { width: 100%; justify-content: space-between; }
+                    #coserops-downloads { width: calc(100vw - max(8px, env(safe-area-inset-left)) - max(8px, env(safe-area-inset-right))); }
+                    #coserops-downloads .co-download-toolbar { align-items: flex-start; }
+                    #coserops-downloads .co-download-footer { padding: 10px 20px; }
                     #coserops-downloads .co-download-row { padding: 16px; gap: 12px 8px; }
                     #coserops-downloads .co-download-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
                     #coserops-downloads .co-download-row .co-download-actions { width: 100%; }
@@ -222,10 +250,10 @@
                 }
             `;
     const DOWNLOAD_MARKUP = `
-            <header class="co-header"><div><p class="co-brand">COSEROPS / DOWNLOADS</p><h2 id="coserops-download-title">选择要下载的视频</h2><p class="co-muted">全部视频源 · 自行选择画质与文件</p></div><div class="co-download-actions"><button type="button" data-download-refresh>重新获取</button><button type="button" class="co-close" data-download-close aria-label="关闭视频下载弹窗">×</button></div></header>
-            <div class="co-download-body"><p data-download-status role="status"></p>
+            <header class="co-header"><div><p class="co-brand">COSEROPS / DOWNLOADS</p><h2 id="coserops-download-title">视频下载</h2><p class="co-muted">选择画质，把想看的留在本地。</p></div><button type="button" class="co-close" data-download-close aria-label="关闭视频下载弹窗">×</button></header>
+            <div class="co-download-body"><div class="co-download-toolbar"><p data-download-status role="status"></p><button type="button" data-download-refresh>重新获取</button></div>
             <p class="co-download-note co-muted">列表按文件大小从大到小排列，大小未知的排在最后。文件大小以服务器返回值为准；HLS 根据码率与时长估算，无法获取时显示“未知”。点击下载后才保存视频，列表可能包含预览或广告。</p>
-            <div data-download-list></div></div>`;
+            <div data-download-list></div></div><footer class="co-download-footer"><p class="co-muted">关闭面板不会中断已开始的下载</p>${CONTACT_MARKUP}</footer>`;
 
     /**
      * @typedef {object} DownloadEntry

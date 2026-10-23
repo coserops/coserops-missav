@@ -60,7 +60,7 @@ test('brand text, muted text and primary actions meet WCAG AA normal-text contra
         return rgb[0] * .2126 + rgb[1] * .7152 + rgb[2] * .0722;
     }
     const colors = Object.fromEntries([...panels.PANEL_STYLES.matchAll(/--co-([a-z-]+): #([0-9a-f]{6})/g)].map(([, name, hex]) => [name, hex]));
-    for (const [foreground, background] of [['accent', 'brand-blue'], ['muted', 'surface'], ['text', 'bg'], ['brand-blue', 'accent']]) {
+    for (const [foreground, background] of [['accent', 'brand-blue'], ['accent', 'surface'], ['muted', 'surface'], ['muted', 'bg'], ['text', 'bg'], ['text', 'surface'], ['brand-blue', 'accent']]) {
         assert.ok(colors[foreground] && colors[background], 'brand tokens must exist');
         const values = [luminance(colors[foreground]), luminance(colors[background])].sort((a, b) => b - a);
         assert.ok((values[0] + .05) / (values[1] + .05) >= 4.5, `${foreground} on ${background}`);
@@ -72,4 +72,44 @@ test('panel-specific styles do not duplicate the shared theme or reset another p
     for (const styles of [panels.SETTINGS_STYLES, panels.DOWNLOAD_STYLES]) {
         assert.doesNotMatch(styles, /data:image|--co-accent:|:is\(#coserops-settings, #coserops-downloads\)/);
     }
+});
+
+
+test('both panels expose a labelled author contact without replacing existing controls', () => {
+    for (const markup of [panels.SETTINGS_MARKUP, panels.DOWNLOAD_MARKUP]) {
+        const links = markup.match(/<a class="co-contact"[^>]*>[\s\S]*?<\/a>/g) || [];
+        assert.equal(links.length, 1);
+        assert.match(links[0], /href="https:\/\/x\.com\/coserops"/);
+        assert.match(links[0], /target="_blank"/);
+        assert.match(links[0], /rel="noopener noreferrer"/);
+        assert.match(links[0], /aria-label="联系作者：X @coserops（在新标签页打开）"/);
+        assert.match(links[0], /联系作者 · X @coserops/);
+    }
+});
+
+
+test('panel hierarchy keeps contact in footers and refresh beside the download status', () => {
+    for (const markup of [panels.SETTINGS_MARKUP, panels.DOWNLOAD_MARKUP]) {
+        const header = markup.match(/<header[^>]*>([\s\S]*?)<\/header>/)[1];
+        const footer = markup.match(/<footer[^>]*>([\s\S]*?)<\/footer>/)[1];
+        assert.doesNotMatch(header, /co-contact|data-download-refresh/);
+        assert.match(header, /class="co-close"/);
+        assert.match(footer, /co-contact/);
+        assert.equal((markup.match(/<h2 /g) || []).length, 1);
+    }
+    assert.match(panels.DOWNLOAD_MARKUP, /class="co-download-toolbar"[\s\S]*data-download-status[\s\S]*data-download-refresh/);
+    assert.match(panels.DOWNLOAD_MARKUP, /关闭面板不会中断已开始的下载/);
+    assert.match(panels.SETTINGS_MARKUP, /class="co-footer-actions"[\s\S]*data-reset[\s\S]*data-save/);
+});
+
+test('responsive styling protects safe areas, scrollable content and reduced-motion feedback', () => {
+    for (const edge of ['top', 'right', 'bottom', 'left']) {
+        assert.ok(panels.PANEL_STYLES.includes(`env(safe-area-inset-${edge})`));
+    }
+    assert.match(panels.PANEL_STYLES, /#coserops-update-notice \{ animation: none; \}/);
+    assert.match(panels.PANEL_STYLES, /button:active:not\(:disabled\) \{ transform: none; \}/);
+    assert.match(panels.SETTINGS_STYLES, /select:disabled/);
+    assert.match(panels.SETTINGS_STYLES, /co-footer-actions \{ grid-column: 1; grid-row: 2;/);
+    assert.match(panels.DOWNLOAD_STYLES, /co-download-row:focus-within/);
+    assert.doesNotMatch(panels.DOWNLOAD_STYLES, /#coserops-downloads a \{/);
 });
