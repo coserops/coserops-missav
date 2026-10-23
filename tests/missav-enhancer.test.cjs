@@ -26,9 +26,11 @@ function setup({ quality = 720, height = 0, selected = null, htmlLanguage = 'en'
     };
     const instrumented = script.replace("    start().catch(error => console.error(PREFIX, '初始化失败', error));", `
         globalThis.api = {
-            state, applyQuality, applyLanguage, resetSource, cancelQualityRequest,
+            state: featureStatus, applyQuality, applyLanguage, resetSource, cancelQualityRequest, bindPlayer, loadPreferences, saveSettings,
+            get preferredQuality() { return preferredQuality; },
+            get preferredLanguage() { return preferredLanguage; },
             attach(p, v) { player = p; video = v; },
-            setPreferred(value) { preferred = value; },
+            setPreferred(value) { preferredQuality = value; },
             setLanguage(value) { preferredLanguage = value; },
             markApplied(value) { qualityApplied = value; }
         };
@@ -37,7 +39,7 @@ function setup({ quality = 720, height = 0, selected = null, htmlLanguage = 'en'
     const player = { quality, options: { quality: [360, 720] } };
     context.api.attach(player, media);
     return {
-        api: context.api, player, media, redirects,
+        api: context.api, context, player, media, redirects,
         advance(ms) {
             const until = now + ms;
             while (true) {
@@ -261,4 +263,41 @@ test('failed acknowledgment stays visible and permits retry', async () => {
     assert.equal(h.notices[0].children[3].disabled, false);
     assert.equal(h.storage.get('lastAcknowledgedVersion'), '');
     assert.equal(h.warnings.length, 1);
+});
+
+
+test('stored preferences load through the startup boundary', async () => {
+    const h = setup();
+    h.context.GM_getValue = async key => key === 'preferredQuality' ? 1080 : 'ja';
+    await h.api.loadPreferences();
+    assert.equal(h.api.preferredQuality, 1080);
+    assert.equal(h.api.preferredLanguage, 'ja');
+});
+
+test('invalid stored values retain defaults and report both failures', async () => {
+    const h = setup();
+    h.context.GM_getValue = async () => ({ invalid: true });
+    await h.api.loadPreferences();
+    assert.equal(h.api.preferredQuality, 360);
+    assert.equal(h.api.preferredLanguage, 'zh-Hans');
+    assert.match(h.api.state.quality, /配置读取异常/);
+    assert.match(h.api.state.language, /配置读取异常/);
+    assert.equal(await h.api.saveSettings(-1, 'en'), false);
+});
+
+test('focus wrapper preserves receiver and arguments and restores the replaced player', () => {
+    const h = setup();
+    const calls = [];
+    const original = function (...args) { calls.push({ receiver: this, args }); return 'paused'; };
+    const first = { pause: original };
+    h.api.bindPlayer(first);
+    h.context.document.hasFocus = () => false;
+    assert.equal(first.pause('blur'), undefined);
+    assert.equal(calls.length, 0);
+    h.context.document.hasFocus = () => true;
+    assert.equal(first.pause('manual'), 'paused');
+    assert.equal(calls[0].receiver, first);
+    assert.deepEqual(calls[0].args, ['manual']);
+    h.api.bindPlayer({ pause() {} });
+    assert.equal(first.pause, original);
 });
