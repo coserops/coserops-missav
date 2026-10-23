@@ -16,7 +16,7 @@
 // @name:es       CoserOps MissAV Mejoras del reproductor
 // @name:it       CoserOps MissAV Miglioramenti del lettore
 // @namespace    coserops/missav
-// @version      v20261023.2146
+// @version      v20261023.2341
 // @updateURL    https://raw.githubusercontent.com/coserops/coserops-missav/main/missav-enhancer.user.js
 // @downloadURL  https://raw.githubusercontent.com/coserops/coserops-missav/main/missav-enhancer.user.js
 // @homepageURL  https://github.com/coserops/coserops-missav
