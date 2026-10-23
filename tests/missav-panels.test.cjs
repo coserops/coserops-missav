@@ -7,7 +7,7 @@ const { join } = require('node:path');
 const script = readFileSync(join(__dirname, '../missav-enhancer.user.js'), 'utf8');
 const start = script.indexOf('    const PANEL_STYLES');
 const end = script.indexOf('    /**', script.indexOf('    const DOWNLOAD_MARKUP'));
-const panels = runInNewContext(`${script.slice(start, end)}; ({ SETTINGS_MARKUP, DOWNLOAD_MARKUP, SETTINGS_STYLES, DOWNLOAD_STYLES })`);
+const panels = runInNewContext(`${script.slice(start, end)}; ({ PANEL_STYLES, SETTINGS_MARKUP, DOWNLOAD_MARKUP, SETTINGS_STYLES, DOWNLOAD_STYLES })`);
 
 test('settings redesign preserves labelled fields, status regions and save/reset hooks', () => {
     const markup = panels.SETTINGS_MARKUP;
@@ -28,11 +28,48 @@ test('download redesign retains controls, live status and sorting explanation', 
     assert.match(panels.DOWNLOAD_MARKUP, /从大到小排列，大小未知的排在最后/);
 });
 
-test('each independently injected stylesheet includes motion, contrast and short-screen safeguards', () => {
-    for (const styles of [panels.SETTINGS_STYLES, panels.DOWNLOAD_STYLES]) {
+test('shared panel stylesheet includes motion, contrast and short-screen safeguards', () => {
+    for (const styles of [panels.PANEL_STYLES]) {
         for (const rule of ['prefers-reduced-motion: reduce', 'forced-colors: active', ':focus-visible', 'max-height: 500px', '100dvh', 'overscroll-behavior: contain']) {
             assert.ok(styles.includes(rule), rule);
         }
         assert.doesNotMatch(styles, /https?:\/\//);
+    }
+});
+
+
+test('all surfaces use the original embedded logo and shared brand tokens without external requests', () => {
+    const logo = readFileSync(join(__dirname, '../logo.png')).toString('base64');
+    for (const styles of [panels.PANEL_STYLES]) {
+        assert.ok(styles.includes(`data:image/png;base64,${logo}`));
+        for (const token of ['--co-accent: #c7e76b', '--co-brand-blue: #0c3345', '--co-muted: #a9bec5']) {
+            assert.ok(styles.includes(token), token);
+        }
+        for (const id of ['settings-button', 'download-button', 'update-notice']) {
+            assert.ok(styles.includes(`#coserops-${id}`), id);
+        }
+        assert.ok(styles.includes('env(safe-area-inset-right)'));
+        assert.doesNotMatch(styles, /#c5e8c9|#141c18|#18241d/);
+    }
+});
+
+test('brand text, muted text and primary actions meet WCAG AA normal-text contrast', () => {
+    function luminance(hex) {
+        const rgb = hex.match(/\w\w/g).map(value => parseInt(value, 16) / 255)
+            .map(value => value <= .04045 ? value / 12.92 : ((value + .055) / 1.055) ** 2.4);
+        return rgb[0] * .2126 + rgb[1] * .7152 + rgb[2] * .0722;
+    }
+    const colors = Object.fromEntries([...panels.PANEL_STYLES.matchAll(/--co-([a-z-]+): #([0-9a-f]{6})/g)].map(([, name, hex]) => [name, hex]));
+    for (const [foreground, background] of [['accent', 'brand-blue'], ['muted', 'surface'], ['text', 'bg'], ['brand-blue', 'accent']]) {
+        assert.ok(colors[foreground] && colors[background], 'brand tokens must exist');
+        const values = [luminance(colors[foreground]), luminance(colors[background])].sort((a, b) => b - a);
+        assert.ok((values[0] + .05) / (values[1] + .05) >= 4.5, `${foreground} on ${background}`);
+    }
+});
+
+
+test('panel-specific styles do not duplicate the shared theme or reset another panel width', () => {
+    for (const styles of [panels.SETTINGS_STYLES, panels.DOWNLOAD_STYLES]) {
+        assert.doesNotMatch(styles, /data:image|--co-accent:|:is\(#coserops-settings, #coserops-downloads\)/);
     }
 });

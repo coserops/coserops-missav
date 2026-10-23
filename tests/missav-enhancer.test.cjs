@@ -212,6 +212,7 @@ function notificationHarness(seen = '', failSave = false) {
     const storage = new Map([['lastAcknowledgedVersion', seen]]);
     const notices = [];
     const warnings = [];
+    const sheets = [];
     const context = {
         GM_info: { script: { version: '2026.10.22.1' } },
         GM_getValue: async (key, fallback) => storage.get(key) ?? fallback,
@@ -221,6 +222,8 @@ function notificationHarness(seen = '', failSave = false) {
         },
         console: { warn: (...args) => warnings.push(args) },
         document: {
+            head: { append: element => sheets.push(element) },
+            getElementById: id => sheets.find(element => element.id === id),
             body: { append: element => notices.push(element) },
             createElement: () => ({
                 style: {}, events: {}, children: [],
@@ -232,7 +235,7 @@ function notificationHarness(seen = '', failSave = false) {
         },
     };
     runInNewContext(script.replace("    start().catch(error => console.error(PREFIX, '初始化失败', error));", 'globalThis.show = showUpdateNotice;'), context);
-    return { show: context.show, notices, storage, warnings };
+    return { show: context.show, notices, storage, warnings, sheets };
 }
 
 test('first installation shows current version and acknowledgment persists', async () => {
@@ -251,6 +254,8 @@ test('changed version shows update notice, concurrent calls do not duplicate it'
     const h = notificationHarness('v20261022');
     await Promise.all([h.show(), h.show()]);
     assert.equal(h.notices.length, 1);
+    assert.equal(h.sheets.length, 1);
+    assert.equal(h.sheets[0].id, 'coserops-brand-style');
     assert.match(h.notices[0].children[0].textContent, /已更新到 2026\.10\.22\.1/);
 });
 
